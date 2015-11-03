@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true">
+    <datastore-index kind="Price" ancestor="false" source="manual">
+        <property name="assetId" direction="asc"/>
+        <property name="day" direction="asc"/>
+    </datastore-index>
+    <datastore-index kind="Asset" ancestor="false" source="manual">
+        <property name="userId" direction="asc" />
+        <property name="startDay" direction="desc" />
+        <property name="endDay" direction="desc" />
+    </datastore-index>
+</datastore-indexes>

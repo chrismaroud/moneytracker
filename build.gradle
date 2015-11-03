@@ -5,9 +5,7 @@ apply plugin: 'appengine'
 group 'com.bitsfromspace'
 version '1.0-SNAPSHOT'
 
-ext.appId = 'moneytracker1234'
-ext.appEngineVersion = '1.9.27'
-ext.appEmail = 'coudeman@gmail.com'
+def appId = 'moneytracker1234'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -23,13 +21,12 @@ appengine {
     downloadSdk = true
 
     appcfg {
-        email = appEmail
+        email = 'coudeman@gmail.com'
         noCookies = true
         oauth2 = true
 
-        app {
-            id = 'sample-app'
-        }
+
+        extraOptions = ["--application=${appId}"]
     }
 }
 
@@ -63,7 +60,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'net.sf.trove4j:trove4j:3.0.3'
     compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
-       
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.hamcrest:hamcrest-core:1.3'

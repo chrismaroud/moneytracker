@@ -1,6 +1,6 @@
 build
 .gradle
-.out
+out
 gradle*
 moneytracker.iml
 moneytracker.ipr
