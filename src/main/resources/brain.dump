@@ -1,0 +1,32 @@
+
+index.html --> welcome page
+[SIGN IN][REGISTER]
+
+Overview
+    Current Capital
+        Asset name |    $        | Total yield    | 1-month yield
+        blabla       E. 25000       234%            321%
+        dedlwedklew  E. 214124      214124124
+        ------------------------
+        Total        E. 29323238
+
+     Highest            Lowest              Now
+       31 dec 2010         25 dec 2015          $dededadade
+
+Assets
+
+
+Analytics
+
+
+
+**** MODEL ***
+
+Asset: ID, userID, type, currency, startDay, endDay
+    Share: ISIN, taxPercentage, numberOfShares
+        Option: strikePreice
+    Cash: amount, interestPercentage
+User: ID, currency
+Price: date, assetID, holding, change, changePercentage
+
+

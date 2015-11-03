@@ -1,0 +1,8 @@
+build
+.gradle
+.out
+gradle*
+moneytracker.iml
+moneytracker.ipr
+moneytracker.iws
+
