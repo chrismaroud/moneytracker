@@ -110,7 +110,7 @@ public class AppEngineDao implements Dao {
             query = new Query("Price")
                     .setFilter(filter)
                     .setKeysOnly();
-            if (null != datastoreService.prepare(query).asSingleEntity()){
+            if (null == datastoreService.prepare(query).asSingleEntity()){
                 assetsNotPriced.add(getAsset(assetId));
             }
         }
@@ -178,7 +178,7 @@ public class AppEngineDao implements Dao {
     @Override
     public Price getLatestPrice(String assetId) {
         Query query = new Query("Price")
-                .setFilter(new Query.FilterPredicate(assetId, Query.FilterOperator.EQUAL, assetId))
+                .setFilter(new Query.FilterPredicate("assetId", Query.FilterOperator.EQUAL, assetId))
                 .setKeysOnly()
                 .addSort("day", Query.SortDirection.DESCENDING);
         Entity latestPrice = datastoreService.prepare(query).asSingleEntity();
