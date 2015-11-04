@@ -46,6 +46,10 @@
     <!-- Custom styles for this template -->
     <link href="moneytracker.css" rel="stylesheet">
 
+    <!-- Sortable table -->
+    <script src="sortable.min.js"></script>
+    <link rel="stylesheet" href="sortable-theme-bootstrap.css"/>
+
     <script src="app.js"></script>
 
 
@@ -86,7 +90,8 @@
     </div>
 </nav>
 
-<div class="container-fluid" style="margin-top: 25px;" ng-controller="OverviewController">
+<div class="container-fluid" style="margin-top: 25px;"
+     ng-controller="OverviewController">
 
     <script type="text/ng-template" id="selectCurrencyContent.html">
         <div class="modal-header">
@@ -102,7 +107,8 @@
         <div class="modal-footer">
             <button class="btn btn-primary" type="button"
                     ng-disabled="selectedCurrency.value == undefined"
-                    ng-click="selectCurrency(selectedCurrency.value)">SAVE</button>
+                    ng-click="selectCurrency(selectedCurrency.value)">SAVE
+            </button>
         </div>
     </script>
     <script type="text/ng-template" id="noAssets.html">
@@ -116,7 +122,6 @@
             <button class="btn btn-primary" type="button" onclick="location.href='assets.jsp';">OK</button>
         </div>
     </script>
-
 
 
     <uib-alert type="danger" close="clearError()" ng-show="error">
@@ -136,29 +141,35 @@
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">Overview</a></li>
         <li role="presentation"><a href="assets.jsp">My assets</a></li>
-        <li role="presentation"><a href="analytics.jsp">Analytics</a></li>
+        <li role="presentation"><a href="#">Analytics</a></li>
     </ul>
 
     <div class="row" style="margin-top: 25px;" ng-show="overview">
         <div class="col-sm-4">
             <a class="btn btn-lg btn-success" href="#" style="width: 100%;margin: 10px;">
                 <i class="fa fa-thumbs-up fa-5x pull-left"></i>
+
                 <h1>{{overview.highestPrice | currency : user.symbol : 2}}</h1><br>
-                <small ng-hide="!overview.highestPriceDate">Best day @ {{overview.highestPriceDate | date}}</small><br>
+                <small ng-hide="!overview.highestPriceDate">Best day @ {{overview.highestPriceDate | date}}</small>
+                <br>
             </a>
         </div>
         <div class="col-sm-4">
             <a class="btn btn-lg btn-info" href="#" style="width: 100%;margin: 10px;">
                 <i class="fa fa-flag fa-5x pull-left"></i>
+
                 <h1>{{overview.currentPrice | currency : user.symbol : 2}}</h1><br>
-                <small>Your current capital</small><br>
+                <small>Your current capital</small>
+                <br>
             </a>
         </div>
         <div class="col-sm-4">
             <a class="btn btn-lg btn-danger" href="#" style="width: 100%;margin: 10px;">
                 <i class="fa fa-thumbs-down fa-5x pull-left"></i>
+
                 <h1>{{overview.lowestPrice | currency : user.symbol : 2}}</h1><br>
-                <small ng-hide="!overview.lowestPriceDate">Worst day @  {{overview.lowestPriceDate | date}}</small><br>
+                <small ng-hide="!overview.lowestPriceDate">Worst day @ {{overview.lowestPriceDate | date}}</small>
+                <br>
             </a>
         </div>
     </div>
@@ -186,9 +197,8 @@
     </div>
 
 
-
     <h3>Current Asset Values</h3>
-    <table class="table table-hover" ng-show="overview">
+    <table class="table table-hover sortable-theme-bootstrap" ng-show="overview" data-sortable>
         <caption>Based on most recent prices</caption>
 
         <thead>
@@ -200,7 +210,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-hide="overview.assets.length"><td colspan="3"><small>No asset prices found?</small></td></tr>
+        <tr ng-hide="overview.assets.length">
+            <td colspan="3">
+                <small>No asset prices found?</small>
+            </td>
+        </tr>
         <tr ng-repeat="asset in overview.assets">
             <td>{{asset.name}}</td>
             <td>{{asset.price | currency : asset.currency.symbol : 2}}</td>

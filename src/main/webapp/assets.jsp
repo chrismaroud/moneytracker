@@ -45,6 +45,10 @@
     <script src="angular-chart.min.js"></script>
 
 
+    <!-- Sortable table -->
+    <script src="sortable.min.js"></script>
+    <link rel="stylesheet" href="sortable-theme-bootstrap.css"/>
+
 
     <!-- Custom styles for this template -->
     <link href="moneytracker.css" rel="stylesheet">
@@ -107,37 +111,47 @@
                 </div>
                 <div class="form-group" ng-show="asset.assetType != null">
                     <label for="assetName">Description</label>
-                    <input id="assetName" type="text" class="form-control" placeholder="Description" ng-model="asset.name" min="3" required>
+                    <input id="assetName" type="text" class="form-control" placeholder="Description"
+                           ng-model="asset.name" min="3" required>
                 </div>
                 <div class="form-group" ng-show="asset.assetType != null">
                     <label for="assetCurrency">Currency</label>
-                    <select id="assetCurrency" ng-model="asset.currency" required="required" class="form-control" ng-change="$locale.NUMBER_FORMATS.CURRENCY_SYM = currency2.symbol"
-                            ng-options="currency2.value as currency2.label for currency2 in currencies" >
+                    <select id="assetCurrency" ng-model="asset.currency" required="required" class="form-control"
+                            ng-change="$locale.NUMBER_FORMATS.CURRENCY_SYM = currency2.symbol"
+                            ng-options="currency2.value as currency2.label for currency2 in currencies">
                     </select>
                 </div>
-                <div class="form-group" ng-show="asset.assetType == 'CASH'" >
+                <div class="form-group" ng-show="asset.assetType == 'CASH'">
                     <label for="assetAmount">Saving amount</label>
-                    <input id="assetAmount" type="text" class="form-control" placeholder="Saving amount" ng-model="asset.amount" required ui-money-mask="2">
+                    <input id="assetAmount" type="text" class="form-control" placeholder="Saving amount"
+                           ng-model="asset.amount" required ui-money-mask="2">
                 </div>
                 <div class="form-group" ng-show="asset.assetType == 'CASH'">
                     <label for="assetInterestPercentage">Interest percentage</label>
-                    <input id="assetInterestPercentage" type="text" class="form-control" placeholder="Annual interest percentage (%)" ng-model="asset.interestPercentage"  required ui-percentage-mask="2">
+                    <input id="assetInterestPercentage" type="text" class="form-control"
+                           placeholder="Annual interest percentage (%)" ng-model="asset.interestPercentage" required
+                           ui-percentage-mask="2">
                 </div>
                 <div class="form-group" ng-show="asset.assetType == 'SHARE' || asset.assetType == 'OPTION'">
                     <label for="assetIsin">Bloomberg code</label>
-                    <input id="assetIsin" type="text" class="form-control" placeholder="Bloomberg code (e.g. F:US, AADVP6B:LX)" ng-model="asset.isin" required>
+                    <input id="assetIsin" type="text" class="form-control"
+                           placeholder="Bloomberg code (e.g. F:US, AADVP6B:LX)" ng-model="asset.isin" required>
                 </div>
                 <div class="form-group" ng-show="asset.assetType == 'SHARE' || asset.assetType == 'OPTION'">
                     <label for="assetNumberOfShares">Quantity</label>
-                    <input id="assetNumberOfShares" type="number" class="form-control" placeholder="Number of shares / options" ng-model="asset.numberOfShares" required>
+                    <input id="assetNumberOfShares" type="number" class="form-control"
+                           placeholder="Number of shares / options" ng-model="asset.numberOfShares" required>
                 </div>
                 <div class="form-group" ng-show="asset.assetType == 'SHARE' || asset.assetType == 'OPTION'">
                     <label for="assetTaxPercentage">Tax</label>
-                    <input id="assetTaxPercentage" type="text" class="form-control" placeholder="Tax rate percentage, if applicable (e.g. 52)" ng-model="asset.taxPercentage" required ui-percentage-mask="2">
+                    <input id="assetTaxPercentage" type="text" class="form-control"
+                           placeholder="Tax rate percentage, if applicable (e.g. 52)" ng-model="asset.taxPercentage"
+                           required ui-percentage-mask="2">
                 </div>
                 <div class="form-group" ng-show="asset.assetType == 'OPTION'">
                     <label for="assetStrikePrice">Option strike price</label>
-                    <input id="assetStrikePrice" type="text" class="form-control" placeholder="Strike price" ng-model="asset.strikePrice" required ui-money-mask="2">
+                    <input id="assetStrikePrice" type="text" class="form-control" placeholder="Strike price"
+                           ng-model="asset.strikePrice" required ui-money-mask="2">
                 </div>
             </form>
 
@@ -145,9 +159,11 @@
         <div class="modal-footer">
             <button class="btn btn-primary" type="button"
                     ng-disabled="! verifyAsset()"
-                    ng-click="saveAsset(selectedCurrency.value)">SAVE</button>
+                    ng-click="saveAsset(selectedCurrency.value)">SAVE
+            </button>
             <button class="btn" type="button"
-                    ng-click="activeModal.close()">CANCEL</button>
+                    ng-click="activeModal.close()">CANCEL
+            </button>
         </div>
     </script>
 
@@ -167,11 +183,12 @@
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="overview.jsp">Overview</a></li>
         <li role="presentation" class="active"><a href="#">My assets</a></li>
-        <li role="presentation"><a href="analytics.jsp">Analytics</a></li>
+        <li role="presentation"><a href="#">Analytics</a></li>
     </ul>
 
     <br/>
-  <table class="table table-hover">
+
+    <table class="table table-hover sortable-theme-bootstrap" data-sortable>
 
         <thead>
         <tr>
@@ -181,13 +198,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-hide="assets.length"><td colspan="3"><small>No assets found</small></td></tr>
+        <tr ng-hide="assets.length">
+            <td colspan="3">
+                <small>No assets found</small>
+            </td>
+        </tr>
         <tr ng-repeat="asset in assets">
             <td>{{asset.name}}</td>
             <td>{{asset.assetType | lowercase}}</td>
             <td>
-                <a class="btn btn-danger" href="#" ng-click="deleteAsset(asset)"><i class="fa fa-trash-o fa-lg"></i> Delete</a>
-                <a class="btn btn-default btn-sm" href="#" ng-click="editAsset(asset)"><i class="fa fa-pencil fa-fw"></i>Edit</a>
+                <a class="btn btn-danger" href="#" ng-click="deleteAsset(asset)"><i class="fa fa-trash-o fa-lg"></i>
+                    Delete</a>
+                <a class="btn btn-default btn-sm" href="#" ng-click="editAsset(asset)"><i
+                        class="fa fa-pencil fa-fw"></i>Edit</a>
 
             </td>
         </tr>
