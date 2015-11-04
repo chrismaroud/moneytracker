@@ -217,7 +217,7 @@
         </tr>
         <tr ng-repeat="asset in overview.assets">
             <td>{{asset.name}}</td>
-            <td>{{asset.price | currency : asset.currency.symbol : 2}}</td>
+            <td>{{asset.price | currency : asset.currencySymbol : 2}}</td>
             <td>
                 <span ng-class="{'label label-danger' : asset.oneMonthYieldPercentage < 0, 'label label-success' : asset.oneMonthYieldPercentage >= 0}">
                     {{asset.oneMonthYieldPercentage | number : 2}}%

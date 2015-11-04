@@ -25,7 +25,7 @@ app.controller('OverviewController', function ($scope, $uibModal, $http) {
     $scope.error = null;
     $scope.overview = null;
     $scope.currencies = [
-        {value: 'EUR',label: '€ Euro'},
+        {value: 'EUR', label: '\u20ac Euro'},
         {value: 'USD',label: '$ US Dollar'}
     ];
     $scope.user = null;
@@ -108,19 +108,15 @@ app.controller('OverviewController', function ($scope, $uibModal, $http) {
     };
 
     $scope.clearError = function () {
-        alert('clear error');
         $scope.error = null;
     };
     $scope.clearWarning = function () {
-        alert('clear warning');
         $scope.warning = null;
     };
 
 
     $scope.selectCurrency = function(currency){
-        alert('selectCurrency: ' + currency);
         $scope.loading = true;
-        alert('close modal?');
         $scope.activeModal.close();
         $http.post('/rest/user', {defaultCurrency: currency}).then(
             $scope.init, $scope.finishErrorCallback);
@@ -135,7 +131,7 @@ app.controller('AssetController', function ($scope, $uibModal, $http) {
     $scope.asset = {};
     $scope.error = null;
     $scope.currencies = [
-        {value: 'EUR', label: '€ Euro'},
+        {value: 'EUR', label: '\u20ac Euro'},
         {value: 'USD', label: '$ US Dollar'}
     ];
 
@@ -183,6 +179,7 @@ app.controller('AssetController', function ($scope, $uibModal, $http) {
             console.log('show button: no currency');
             show = false;
         } else {
+            //noinspection FallThroughInSwitchStatementJS
             switch ($scope.asset.assetType) {
                 case 'CASH':
                     if (!$scope.asset.amount || $scope.asset.amount.length < 1) {
@@ -239,11 +236,9 @@ app.controller('AssetController', function ($scope, $uibModal, $http) {
         $scope.loading = false;
     };
     $scope.clearError = function () {
-        alert('clear error');
         $scope.error = null;
     };
     $scope.clearWarning = function () {
-        alert('clear warning');
         $scope.warning = null;
     };
 
