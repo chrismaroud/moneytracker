@@ -43,12 +43,14 @@
     <link rel="stylesheet" href="angular-chart.min.css">
     <script src="angular-chart.min.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link href="moneytracker.css" rel="stylesheet">
-
     <!-- Sortable table -->
     <script src="sortable.min.js"></script>
     <link rel="stylesheet" href="sortable-theme-bootstrap.css"/>
+
+    <!-- Custom styles for this template -->
+    <link href="moneytracker.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"/>
+
 
     <script src="app.js"></script>
 

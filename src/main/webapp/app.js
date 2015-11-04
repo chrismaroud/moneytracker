@@ -185,7 +185,7 @@ app.controller('AssetController', function ($scope, $uibModal, $http) {
                     if (!$scope.asset.amount || $scope.asset.amount.length < 1) {
                         show = false;
                         console.log('show button: no amount');
-                    } else if (!$scope.asset.interestPercentage || $scope.asset.interestPercentage.length < 1) {
+                    } else if ($scope.asset.interestPercentage == null || $scope.asset.interestPercentage.length < 1) {
                         show = false;
                         console.log('show button: no interest percentage');
                     }
@@ -203,7 +203,7 @@ app.controller('AssetController', function ($scope, $uibModal, $http) {
                     } else if (!$scope.asset.numberOfShares || $scope.asset.numberOfShares.length < 1) {
                         console.log('show button: no numberOfShares');
                         show = false;
-                    } else if (!$scope.asset.taxPercentage || $scope.asset.taxPercentage.length < 1) {
+                    } else if ($scope.asset.taxPercentage == null || $scope.asset.taxPercentage.length < 1) {
                         console.log('show button: no taxPercentage');
                         show = false;
                     }

@@ -52,7 +52,7 @@
 
     <!-- Custom styles for this template -->
     <link href="moneytracker.css" rel="stylesheet">
-
+    <link rel="shortcut icon" href="favicon.ico"/>
     <script src="app.js"></script>
 
 
@@ -145,7 +145,8 @@
                 <div class="form-group" ng-show="asset.assetType == 'SHARE' || asset.assetType == 'OPTION'">
                     <label for="assetTaxPercentage">Tax</label>
                     <input id="assetTaxPercentage" type="text" class="form-control"
-                           placeholder="Tax rate percentage, if applicable (e.g. 52)" ng-model="asset.taxPercentage"
+                           placeholder="Tax rate percentage (e.g. 52%), type 0.00% if not applicable."
+                           ng-model="asset.taxPercentage"
                            required ui-percentage-mask="2">
                 </div>
                 <div class="form-group" ng-show="asset.assetType == 'OPTION'">
