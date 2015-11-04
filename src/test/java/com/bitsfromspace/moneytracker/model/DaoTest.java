@@ -62,7 +62,7 @@ public abstract class DaoTest {
         share.setUserId("someID");
         share.setCurrency(Currency.USD);
         share.setIsin("ISIN1234");
-        share.setNumberOfShares(124124);
+        share.setNumberOfShares(124124.);
         share.setTaxPercentage(0.41123132);
         share.setStartDay(timeProvider.getDay());
         dao.saveAsset(share);
@@ -83,7 +83,7 @@ public abstract class DaoTest {
         //test update
         share.setName("myShare2");
         share.setCurrency(Currency.EUR);
-        share.setNumberOfShares(98);
+        share.setNumberOfShares(98.);
         share.setTaxPercentage(0.52);
         dao.saveAsset(share);
      
@@ -128,7 +128,7 @@ public abstract class DaoTest {
         option.setUserId("someID");
         option.setCurrency(Currency.USD);
         option.setIsin("ISIN1234");
-        option.setNumberOfShares(124124);
+        option.setNumberOfShares(124124.);
         option.setTaxPercentage(0.41123132);
         option.setStrikePrice(32.1234);
         option.setStartDay(timeProvider.getDay());
@@ -151,7 +151,7 @@ public abstract class DaoTest {
         //test update
         option.setName("myOption2");
         option.setCurrency(Currency.EUR);
-        option.setNumberOfShares(98);
+        option.setNumberOfShares(98.);
         option.setTaxPercentage(0.52);
         option.setStrikePrice(35.6789);
         dao.saveAsset(option);
@@ -263,7 +263,7 @@ public abstract class DaoTest {
         share.setName("myShare");
         share.setCurrency(Currency.EUR);
         share.setIsin("isin1234");
-        share.setNumberOfShares(124124);
+        share.setNumberOfShares(124124.);
         share.setTaxPercentage(0.2514);
         share.setAssetType(AssetType.SHARE);
         share.setStartDay(timeProvider.getDay());
@@ -286,7 +286,7 @@ public abstract class DaoTest {
         option.setName("myOption");
         option.setCurrency(Currency.USD);
         option.setIsin("isin72131");
-        option.setNumberOfShares(242424);
+        option.setNumberOfShares(242424.);
         option.setStrikePrice(199.9996);
         option.setTaxPercentage(0.3938);
         option.setAssetType(AssetType.OPTION);
@@ -425,7 +425,7 @@ public abstract class DaoTest {
         price.setAssetId("assetId");
         price.setChange(2.24124);
         price.setChangePercentage(21.2141241);
-        price.setHolding(100);
+        price.setHolding(100.);
         price.setPrice(66666.789);
         price.setDay(10);
         dao.savePrice(price);

@@ -60,7 +60,7 @@ public class SyncPricesJob implements Job {
         int today = timeProvider.getDay();
         User user = dao.getUser(asset.getUserId());
         Price lastPrice = dao.getLatestPrice(asset.getId());
-        Double quote = quoteService.getQuote(asset.getId());
+        Double quote = quoteService.getQuote(asset.getIsin());
         Price price = new Price();
         price.setAssetId(asset.getId());
         price.setDay(today);
@@ -85,7 +85,7 @@ public class SyncPricesJob implements Job {
         double newValue = value + (value * asset.getInterestPercentage() * days / 365);
         Price price = new Price();
         price.setPrice(newValue);
-        price.setHolding(0);
+        price.setHolding(0.0);
         price.setDay(today);
         price.setAssetId(asset.getId());
         price.setId(UUID.randomUUID().toString());

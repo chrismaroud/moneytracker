@@ -19,7 +19,7 @@ public class BloombergQuoteService implements QuoteService {
 
         try {
             Element priceElement =
-                    Jsoup.connect(String.format("http://www.bloomberg.com/services/%s", bloombergQuote))
+                    Jsoup.connect(String.format("http://www.bloomberg.com/quote/%s", bloombergQuote))
                             .get()
                             .select(".price")
                             .first();

@@ -13,7 +13,7 @@ public class Price implements Verifiable {
     private String id;
     private String assetId;
     private Integer day;
-    private Integer holding;
+    private Double holding;
     private Double price;
     private Double change;
     private Double changePercentage;
@@ -63,11 +63,11 @@ public class Price implements Verifiable {
         this.day = day;
     }
 
-    public Integer getHolding() {
+    public Double getHolding() {
         return holding;
     }
 
-    public void setHolding(Integer holding) {
+    public void setHolding(Double holding) {
         this.holding = holding;
     }
 

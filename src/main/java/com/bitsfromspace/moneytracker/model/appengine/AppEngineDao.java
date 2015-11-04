@@ -1,10 +1,8 @@
 package com.bitsfromspace.moneytracker.model.appengine;
 
 import com.bitsfromspace.moneytracker.model.*;
-import com.bitsfromspace.moneytracker.utils.TimeProvider;
 import com.google.appengine.api.datastore.*;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +20,6 @@ public class AppEngineDao implements Dao {
     public AppEngineDao() {
 
         datastoreService = DatastoreServiceFactory.getDatastoreService();
-//
-//
-//        Query q = new Query("User");
-//        q.addSort("pietje", Query.SortDirection.DESCENDING);
-//        q=q.setKeysOnly();
-//        datastoreService.prepare(q).asList(FetchOptions.Builder.withDefaults());
     }
 
     @Override
@@ -53,30 +45,11 @@ public class AppEngineDao implements Dao {
     }
 
     @Override
-    public void saveAsset(Asset asset) {
-        asset.verify();
-        Entity entity = new Entity(KeyFactory.createKey("Asset", asset.getId()));
-        entity.setProperty("userId", asset.getUserId());
-        entity.setUnindexedProperty("name", asset.getName());
-        entity.setUnindexedProperty("currency", asset.getCurrency().toString());
-        entity.setProperty("startDay", asset.getStartDay());
-        entity.setProperty("endDay", asset.getEndDay());
-        entity.setUnindexedProperty("amount", asset.getAmount());
-        entity.setUnindexedProperty("interestPercentage", asset.getInterestPercentage());
-        entity.setUnindexedProperty("numberOfShares", asset.getNumberOfShares());
-        entity.setUnindexedProperty("strikePrice", asset.getStrikePrice());
-        entity.setUnindexedProperty("taxPercentage", asset.getTaxPercentage());
-        entity.setUnindexedProperty("assetType", asset.getAssetType().toString());
-        entity.setUnindexedProperty("isin", asset.getIsin());
-        datastoreService.put(entity);
-    }
-
-    @Override
     public List<Asset> getAssets(String userId, boolean includeDeleted) {
         Query.Filter filter = new Query.FilterPredicate("userId", Query.FilterOperator.EQUAL, userId);
 
         if (!includeDeleted) {
-            filter = Query.CompositeFilterOperator.and(filter, new Query.FilterPredicate("endDay", Query.FilterOperator.EQUAL, null));
+            filter = Query.CompositeFilterOperator.and(filter, new Query.FilterPredicate("endDay", Query.FilterOperator.EQUAL, 0));
         }
 
         List<Asset> results = new ArrayList<>();
@@ -91,7 +64,7 @@ public class AppEngineDao implements Dao {
 
     @Override
     public List<Asset> getAssetsNotPricedOnDay(int day) {
-        Query.Filter filter = new Query.FilterPredicate("endDay", Query.FilterOperator.EQUAL, null);
+        Query.Filter filter = new Query.FilterPredicate("endDay", Query.FilterOperator.EQUAL, 0);
 
         List<String> assetIds = new ArrayList<>();
         Query query = new Query("Asset")
@@ -130,7 +103,7 @@ public class AppEngineDao implements Dao {
             asset.setEndDay(getInteger(entity.getProperty("endDay")));
             asset.setAmount((Double) entity.getProperty("amount"));
             asset.setInterestPercentage((Double) entity.getProperty("interestPercentage"));
-            asset.setNumberOfShares(getInteger(entity.getProperty("numberOfShares")));
+            asset.setNumberOfShares((Double)entity.getProperty("numberOfShares"));
             asset.setStrikePrice((Double) entity.getProperty("strikePrice"));
             asset.setTaxPercentage((Double) entity.getProperty("taxPercentage"));
             asset.setAssetType(AssetType.valueOf((String) entity.getProperty("assetType")));
@@ -140,6 +113,24 @@ public class AppEngineDao implements Dao {
         } catch (EntityNotFoundException nfe) {
             return null;
         }
+    }
+    @Override
+    public void saveAsset(Asset asset) {
+        asset.verify();
+        Entity entity = new Entity(KeyFactory.createKey("Asset", asset.getId()));
+        entity.setProperty("userId", asset.getUserId());
+        entity.setUnindexedProperty("name", asset.getName());
+        entity.setUnindexedProperty("currency", asset.getCurrency().toString());
+        entity.setProperty("startDay", asset.getStartDay());
+        entity.setProperty("endDay", asset.getEndDay() == null ? 0 : asset.getEndDay());
+        entity.setUnindexedProperty("amount", asset.getAmount());
+        entity.setUnindexedProperty("interestPercentage", asset.getInterestPercentage());
+        entity.setUnindexedProperty("numberOfShares", asset.getNumberOfShares());
+        entity.setUnindexedProperty("strikePrice", asset.getStrikePrice());
+        entity.setUnindexedProperty("taxPercentage", asset.getTaxPercentage());
+        entity.setUnindexedProperty("assetType", asset.getAssetType().toString());
+        entity.setUnindexedProperty("isin", asset.getIsin());
+        datastoreService.put(entity);
     }
 
 
@@ -164,7 +155,7 @@ public class AppEngineDao implements Dao {
             price.setId(id);
             price.setAssetId((String) entity.getProperty("assetId"));
             price.setDay(getInteger(entity.getProperty("day")));
-            price.setHolding(getInteger(entity.getProperty("holding")));
+            price.setHolding((Double)(entity.getProperty("holding")));
             price.setPrice((Double) entity.getProperty("price"));
             price.setChange((Double) entity.getProperty("change"));
             price.setChangePercentage((Double) entity.getProperty("changePercentage"));
@@ -222,6 +213,9 @@ public class AppEngineDao implements Dao {
 
     private Integer getInteger(Object in){
         if (in == null){
+            return null;
+        }
+        if ((Long) in == 0){
             return null;
         }
         return ((Long)in).intValue();

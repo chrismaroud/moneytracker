@@ -4,6 +4,7 @@ import com.bitsfromspace.moneytracker.MoneyTrackerException;
 import com.bitsfromspace.moneytracker.model.Currency;
 import com.eclipsesource.json.Json;
 
+import javax.inject.Singleton;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,7 @@ import static com.bitsfromspace.moneytracker.utils.IoUtils.readFully;
  * @author chris
  * @since 02-11-15.
  */
+@Singleton
 public class YahooCurrencyService implements CurrencyRateProvider {
 
     private static final String CURRENCY_PAIR_PARAMETER = "$CURRENCYPAIR";

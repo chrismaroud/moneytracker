@@ -17,7 +17,7 @@ public class Asset implements Verifiable {
     private Double amount;
     private Double strikePrice;
     private String isin;
-    private Integer numberOfShares;
+    private Double numberOfShares;
     private Double taxPercentage;
 
     @Override
@@ -140,11 +140,11 @@ public class Asset implements Verifiable {
         this.isin = isin;
     }
 
-    public Integer getNumberOfShares() {
+    public Double getNumberOfShares() {
         return numberOfShares;
     }
 
-    public void setNumberOfShares(Integer numberOfShares) {
+    public void setNumberOfShares(Double numberOfShares) {
         this.numberOfShares = numberOfShares;
     }
 

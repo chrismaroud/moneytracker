@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DayUtils {
 
-    private static final int DAY_MS = 24 * 60 * 60 * 1000;
+    private static final long DAY_MS = 24 * 60 * 60 * 1000;
 
     private DayUtils() {
     }
