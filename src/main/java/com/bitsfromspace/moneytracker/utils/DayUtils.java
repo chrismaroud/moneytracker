@@ -1,7 +1,5 @@
 package com.bitsfromspace.moneytracker.utils;
 
-import com.bitsfromspace.moneytracker.services.CurrencyRateProvider;
-
 import java.util.Calendar;
 import java.util.Date;
 

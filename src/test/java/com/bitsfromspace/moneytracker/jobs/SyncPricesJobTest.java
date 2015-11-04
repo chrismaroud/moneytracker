@@ -10,7 +10,6 @@ import com.bitsfromspace.moneytracker.utils.TimeProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.internal.stubbing.answers.Returns;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -29,15 +28,13 @@ public class SyncPricesJobTest {
     private SyncPricesJob syncPricesJob;
     private Dao daoMock;
     private TimeProvider timeProviderMock;
-    private QuoteService quoteServiceMock;
-    private CurrencyService currencyServiceMock;
 
     @Before
     public void setup() {
         daoMock = mock(Dao.class);
         timeProviderMock = mock(TimeProvider.class);
-        quoteServiceMock = mock(QuoteService.class);
-        currencyServiceMock = mock(CurrencyService.class);
+        QuoteService quoteServiceMock = mock(QuoteService.class);
+        CurrencyService currencyServiceMock = mock(CurrencyService.class);
         syncPricesJob = new SyncPricesJob(daoMock, timeProviderMock, quoteServiceMock, currencyServiceMock);
     }
 

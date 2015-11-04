@@ -1,6 +1,7 @@
 package com.bitsfromspace.moneytracker.services;
 
 import com.bitsfromspace.moneytracker.model.Currency;
+import com.bitsfromspace.moneytracker.utils.TimeProviderImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -14,7 +15,7 @@ public class YahooCurrencyServiceTest {
 
     @Test
     public void test() {
-        YahooCurrencyService yahooCurrencyService = new YahooCurrencyService();
+        YahooCurrencyService yahooCurrencyService = new YahooCurrencyService(new TimeProviderImpl(), 1);
         double euroToUsd = yahooCurrencyService.getConversionRate(Currency.EUR, Currency.USD);
         double usdToEuro = yahooCurrencyService.getConversionRate(Currency.USD, Currency.EUR);
 

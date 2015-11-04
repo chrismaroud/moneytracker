@@ -4,7 +4,7 @@ import com.bitsfromspace.moneytracker.jobs.appengine.SyncPricesJobCronServlet;
 import com.bitsfromspace.moneytracker.model.Dao;
 import com.bitsfromspace.moneytracker.model.appengine.AppEngineDao;
 import com.bitsfromspace.moneytracker.services.BloombergQuoteService;
-import com.bitsfromspace.moneytracker.services.CurrencyRateProvider;
+import com.bitsfromspace.moneytracker.services.CurrencyService;
 import com.bitsfromspace.moneytracker.services.QuoteService;
 import com.bitsfromspace.moneytracker.services.YahooCurrencyService;
 import com.bitsfromspace.moneytracker.utils.TimeProvider;
@@ -45,7 +45,7 @@ public class MoneyTrackerConfig extends GuiceServletContextListener {
                 bind(Dao.class).to(AppEngineDao.class);
                 bind(TimeProvider.class).to(TimeProviderImpl.class);
                 bind(UserProvider.class).to(GoogleUserProvider.class);
-                bind(CurrencyRateProvider.class).to(YahooCurrencyService.class);
+                bind(CurrencyService.class).to(YahooCurrencyService.class);
 
                 serve("/syncPrices").with(SyncPricesJobCronServlet.class);
 

@@ -1,5 +1,6 @@
 package com.bitsfromspace.moneytracker.services;
 
+import com.bitsfromspace.moneytracker.utils.TimeProviderImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -13,7 +14,7 @@ public class BloombergQuoteServiceTest {
 
     @Test
     public void test(){
-        BloombergQuoteService quoteService = new BloombergQuoteService();
+        BloombergQuoteService quoteService = new BloombergQuoteService(new TimeProviderImpl(), 1);
         assertNotNull(quoteService.getQuote("MRKT:US"));
         assertNull(quoteService.getQuote("CHRIS:AMS"));
     }
