@@ -75,7 +75,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">MoneyTracker</a>
+            <a class="navbar-brand" href="#">
+                <img style="max-width:100px; margin-top: -7px;"
+                     src="logo.png">
+                MoneyTracker</a>
 
         </div>
         <div id="navbar" class="collapse navbar-collapse">

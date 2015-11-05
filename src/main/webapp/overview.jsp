@@ -74,7 +74,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">MoneyTracker</a>
+            <a class="navbar-brand" href="#">
+                <img style="max-width:100px; margin-top: -7px;"
+                     src="logo.png">
+                MoneyTracker</a>
 
         </div>
         <div id="navbar" class="collapse navbar-collapse">
@@ -176,21 +179,28 @@
         </div>
     </div>
 
-    <h3>Asset Allocation & Performance</h3>
+    <h3 ng-show="overview">Asset Allocation & Performance</h3>
 
     <div class="row" ng-show="overview">
 
         <div class="col-sm-6">
             <small>Asset distribution (%)</small>
-            <canvas id="doughnut" class="chart chart-doughnut" chart-legend="true"
-                    chart-data="overview.allocationChart.values" chart-labels="overview.allocationChart.labels">
+            <canvas id="doughnut"
+                    class="chart chart-doughnut"
+                    options="overview.allocationChart.options"
+                    chart-legend="true"
+                    chart-data="overview.allocationChart.values"
+                    chart-labels="overview.allocationChart.labels"
+            >
             </canvas>
         </div>
         <div class="col-sm-6">
             <small>1-Month performance (%)</small>
             <canvas id="bar" class="chart chart-bar"
+                    options="overview.performanceChart.options"
                     chart-data="overview.performanceChart.values"
-                    chart-labels="overview.performanceChart.labels">
+                    chart-labels="overview.performanceChart.labels"
+            >
             </canvas>
 
         </div>
@@ -199,13 +209,14 @@
     </div>
 
 
-    <h3>Current Asset Values</h3>
+    <h3 ng-show="overview">Current Asset Values</h3>
     <table class="table table-hover sortable-theme-bootstrap" ng-show="overview" data-sortable>
         <caption>Based on most recent prices</caption>
 
         <thead>
         <tr>
             <th>Asset</th>
+            <th>Currency</th>
             <th>Value</th>
             <th>1-Month yield</th>
             <th>Total yield</th>
@@ -219,15 +230,16 @@
         </tr>
         <tr ng-repeat="asset in overview.assets">
             <td>{{asset.name}}</td>
-            <td>{{asset.price | currency : asset.currencySymbol : 2}}</td>
+            <td>{{asset.currencySymbol}}</td>
+            <td>{{asset.price | currency : user.symbol : 2}}</td>
             <td>
                 <span ng-class="{'label label-danger' : asset.oneMonthYieldPercentage < 0, 'label label-success' : asset.oneMonthYieldPercentage >= 0}">
-                    {{asset.oneMonthYieldPercentage | number : 2}}%
+                    {{asset.oneMonthYieldPercentage * 100 | number : 2}}%
                 </span>
             </td>
             <td>
                 <span ng-class="{'label label-danger' : asset.totalYieldPercentage < 0, 'label label-success' : asset.totalYieldPercentage >= 0}">
-                    {{asset.totalYieldPercentage | number : 2}}%
+                    {{asset.totalYieldPercentage * 100 | number : 2}}%
                 </span>
             </td>
         </tr>

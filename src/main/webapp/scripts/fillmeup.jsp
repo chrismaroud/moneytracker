@@ -1,13 +1,14 @@
-<%@ page import="com.bitsfromspace.moneytracker.model.Dao" %>
-<%@ page import="com.bitsfromspace.moneytracker.model.appengine.AppEngineDao" %>
 <%@ page import="com.bitsfromspace.moneytracker.model.Asset" %>
-<%@ page import="java.util.List" %>
+<%@ page import="com.bitsfromspace.moneytracker.model.AssetType" %>
+<%@ page import="com.bitsfromspace.moneytracker.model.Dao" %>
+<%@ page import="com.bitsfromspace.moneytracker.model.Price" %>
+<%@ page import="com.bitsfromspace.moneytracker.model.appengine.AppEngineDao" %>
 <%@ page import="com.bitsfromspace.moneytracker.utils.TimeProvider" %>
 <%@ page import="com.bitsfromspace.moneytracker.utils.TimeProviderImpl" %>
-<%@ page import="com.bitsfromspace.moneytracker.model.Price" %>
-<%@ page import="java.util.UUID" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.Random" %>
-<%@ page import="com.bitsfromspace.moneytracker.model.AssetType" %><%
+<%@ page import="java.util.UUID" %>
+<%
     TimeProvider timeProvider = new TimeProviderImpl();
 
     String userId = request.getParameter("userId");

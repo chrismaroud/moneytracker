@@ -20,6 +20,9 @@ public class Asset implements Verifiable {
     private Double numberOfShares;
     private Double taxPercentage;
 
+    private Double latestPrice;
+    private Double latestPriceDay;
+
     @Override
     public void verify(){
 

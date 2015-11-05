@@ -81,18 +81,31 @@ app.controller('OverviewController', function ($scope, $uibModal, $http) {
         $scope.overview.allocationChart = {};
         $scope.overview.allocationChart.labels = [];
         $scope.overview.allocationChart.values = [];
+        $scope.overview.allocationChart.options = {
+            tooltipTemplate: function (label) {
+                return label.label + ': ' + $scope.user.symbol +
+                    label.value.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            }
+        };
 
         $scope.overview.performanceChart = {};
         $scope.overview.performanceChart.labels = [];
         $scope.overview.performanceChart.values = [];
         $scope.overview.performanceChart.series = [];
+        $scope.overview.performanceChart.options = {
+            tooltipTemplate: function (label) {
+                return label.value.toFixed(2) + '%';
+            },
+            scaleBeginAtZero: false,
+            responsive: true
+        };
 
         var performanceChartInnerValues = [];
 
         $scope.overview.assets.forEach(function (asset) {
             $scope.overview.allocationChart.labels.push(asset.name);
             $scope.overview.allocationChart.values.push(asset.price);
-            performanceChartInnerValues.push(asset.oneMonthYieldPercentage);
+            performanceChartInnerValues.push(100 * asset.oneMonthYieldPercentage);
             $scope.overview.performanceChart.labels.push(asset.name);
 
         });
